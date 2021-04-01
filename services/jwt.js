@@ -1,12 +1,11 @@
 'use strict';
 const jwt = require('jwt-simple');
 const moment = require('moment');
-
-const KEY = 'MM10AM';
+const CONFIG = require('../configs/configToken.json');
 
 exports.createToken = ({ _id, name, surname, email, role, image }) => {
   const payload = {
-    sub: _id,
+    _id: _id,
     name: name,
     surname: surname,
     email: email,
@@ -16,5 +15,5 @@ exports.createToken = ({ _id, name, surname, email, role, image }) => {
     exp: moment().add(30, 'days').unix(),
   };
 
-  return jwt.encode(payload, KEY);
+  return jwt.encode(payload, CONFIG.KEY);
 };
