@@ -1,5 +1,0 @@
-{
-  "UNAUTHORIZED_REQUEST": "The request does not have the authorization header",
-  "NOT_VALID_TOKEN": "This token isn't valid",
-  "TOKEN_EXPIRED": "This token has expired"
-}

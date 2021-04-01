@@ -1,0 +1,8 @@
+{
+  "UNAUTHORIZED_REQUEST": "The request does not have the authorization header",
+  "NOT_VALID_TOKEN": "This token isn't valid",
+  "TOKEN_EXPIRED": "This token has expired",
+  "NOT_UPLOADED_FILE": "Not uploaded file",
+  "NOT_VALID_EXTENSION": "Not uploaded file, not valid file extensión",
+  "FILE_NOT_EXISTS": "This file doesn't exists"
+}

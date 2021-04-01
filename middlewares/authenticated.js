@@ -1,7 +1,7 @@
 'use strict';
 const jwt = require('jwt-simple');
 const moment = require('moment');
-const MESSAGES = require('../constants/commenMessages.json');
+const MESSAGES = require('../constants/messages/commenMessages.json');
 const CONFIG = require('../configs/configToken.json');
 
 exports.authenticated = (req, res, next) => {
