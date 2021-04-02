@@ -7,7 +7,6 @@ const User = require('../models/user');
 const jwt = require('../services/jwt');
 const path = require('path');
 const fs = require('fs');
-const { exists } = require('../models/user');
 
 const DEFAULT_DATA = { ROLE: 'ROLE_USER', IMAGE: null };
 const DEFAULT_SALT = 10;
@@ -47,7 +46,7 @@ const controller = {
 
     User.findOne({ email: params.email.toLowerCase() }, (err, user) => {
       if (err) return res.status(500).send({ message: MESSAGES.ERROR_IDENTIFY });
-      if (!user) return res.status(404).send({ message: MESSAGES.USER_NOR_EXIST });
+      if (!user) return res.status(404).send({ message: MESSAGES.USER_NOT_EXIST });
       bcrypt.compare(params.password, user.password, (err, check) => {
         user.password = null;
         if (check && params.gettoken) return res.status(200).send({ token: jwt.createToken(user) });
@@ -96,6 +95,18 @@ const controller = {
     fs.exists(pathFile, (exists) => {
       if (exists) return res.sendFile(path.resolve(pathFile));
       return res.status(404).send({ message: COMMON_MESSAGES.FILE_NOT_EXISTS });
+    });
+  },
+  getUsers: function (req, res) {
+    User.find().exec((err, users) => {
+      if (err || !users) return res.status(404).send({ message: COMMON_MESSAGES.NO_DATA });
+      return res.status(200).send({ success: true, users });
+    });
+  },
+  getUser: function (req, res) {
+    User.findById(req.params.userId).exec((err, user) => {
+      if (err || !user) return res.status(404).send({ message: COMMON_MESSAGES.NO_DATA });
+      return res.status(200).send({ success: true, user });
     });
   },
 };

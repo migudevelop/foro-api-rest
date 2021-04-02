@@ -1,0 +1,6 @@
+{
+  "TOPICS_NOT_EXIST": "Topics not exist",
+  "ERROR_CHECK_USER_EXIST": "Error checking topic duplicity",
+  "ERROR_SAVING": "Error saving topic.",
+  "ERROR_UPDATING": "Error updating topic."
+}

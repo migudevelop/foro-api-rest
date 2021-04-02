@@ -1,7 +1,0 @@
-{
-  "REGISTER": "/register",
-  "LOGIN": "/login",
-  "UPDATE": "/update",
-  "UPLOAD_AVATAR": "/upload-avatar",
-  "GET_AVATAR": "/avatar/:fileName"
-}

@@ -1,5 +1,6 @@
 'use strict';
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema;
 
 const CommentSchema = Schema({
@@ -20,5 +21,7 @@ const TopicSchema = Schema({
   user: { type: Schema.ObjectId, ref: 'User' },
   coments: [CommentSchema],
 });
+
+TopicSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Topic', TopicSchema);
