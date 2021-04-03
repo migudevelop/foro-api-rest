@@ -83,6 +83,21 @@ const controller = {
       return res.status(200).send({ success: true, topic });
     });
   },
+  search: function (req, res) {
+    const searchString = req.params.search;
+    Topic.find({
+      $or: [
+        { title: { $regex: searchString, $options: 'i' } },
+        { content: { $regex: searchString, $options: 'i' } },
+        { code: { $regex: searchString, $options: 'i' } },
+        { lang: { $regex: searchString, $options: 'i' } },
+      ],
+    }).exec((err, topics) => {
+      if (err) return res.status(500).send({ message: COMMON_MESSAGES.FAILED_REQUEST });
+      if (!topics) return res.status(404).send({ message: MESSAGES.TOPICS_NOT_EXIST });
+      return res.status(200).send({ success: true, topics });
+    });
+  },
 };
 
 module.exports = controller;
