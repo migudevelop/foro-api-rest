@@ -9,6 +9,6 @@ mongoose.Promise = global.Promise;
 mongoose
   .connect(`${configDB.url}/${configDB.nameDB}`, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    app.listen(port, () => console.log('Conectado'));
+    app.listen(port, () => console.log('Connected'));
   })
   .catch((err) => console.log(err));

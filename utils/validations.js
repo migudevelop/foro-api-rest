@@ -44,6 +44,15 @@ const validateCreateTopicParams = ({ title, content, lang }) => {
   }
 };
 
+const validateCommentsParams = (content) => {
+  try {
+    let validate_content = !validator.isEmpty(content);
+    return validate_content;
+  } catch (error) {
+    return false;
+  }
+};
+
 const validatePageParams = (page) => {
   try {
     return !page || page == null || page == 0 || page == '0';
@@ -58,4 +67,5 @@ module.exports = {
   validateUpdateUserParams,
   validateCreateTopicParams,
   validatePageParams,
+  validateCommentsParams,
 };

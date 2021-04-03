@@ -1,7 +1,7 @@
 'use strict';
 const jwt = require('jwt-simple');
 const moment = require('moment');
-const MESSAGES = require('../constants/messages/commenMessages.json');
+const MESSAGES = require('../constants/messages/commonMessages.json');
 const CONFIG = require('../configs/configToken.json');
 
 exports.authenticated = (req, res, next) => {
@@ -14,7 +14,6 @@ exports.authenticated = (req, res, next) => {
   } catch (ex) {
     return res.status(403).send({ message: MESSAGES.NOT_VALID_TOKEN });
   }
-  console.log(payload);
   req.user = payload;
   next();
 };

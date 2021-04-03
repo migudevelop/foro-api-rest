@@ -1,10 +1,8 @@
 'use strict';
 const { validateCreateTopicParams, validatePageParams } = require('../utils/validations');
 const MESSAGES = require('../constants/messages/topicMessage.json');
-const COMMON_MESSAGES = require('../constants/messages/commenMessages.json');
+const COMMON_MESSAGES = require('../constants/messages/commonMessages.json');
 const Topic = require('../models/topic');
-const path = require('path');
-const fs = require('fs');
 
 const PAGINATION_OPTIONS = {
   sort: { date: -1 },
@@ -59,6 +57,31 @@ const controller = {
         if (!topics) return res.status(404).send({ message: MESSAGES.TOPICS_NOT_EXIST });
         return res.status(200).send({ success: true, topics });
       });
+  },
+  update: function (req, res) {
+    const topicId = req.params.id;
+    const params = req.body;
+    if (!validateCreateTopicParams(params))
+      return res.status(200).send({ message: COMMON_MESSAGES.INCORRET_DATA_VALIDATION });
+    const update = {
+      title: params.title,
+      content: params.content,
+      code: params.code,
+      lang: params.title,
+    };
+    Topic.findOneAndUpdate({ _id: topicId, user: req.user._id }, update, { new: true }, (err, topic) => {
+      if (err) return res.status(500).send({ message: COMMON_MESSAGES.FAILED_REQUEST });
+      if (!topic) return res.status(404).send({ message: MESSAGES.ERROR_UPDATING });
+      return res.status(200).send({ success: true, topic });
+    });
+  },
+  delete: function (req, res) {
+    const topicId = req.params.id;
+    Topic.findOneAndDelete({ _id: topicId, user: req.user._id }, (err, topic) => {
+      if (err) return res.status(500).send({ message: COMMON_MESSAGES.FAILED_REQUEST });
+      if (!topic) return res.status(404).send({ message: MESSAGES.ERROR_REMOVING });
+      return res.status(200).send({ success: true, topic });
+    });
   },
 };
 

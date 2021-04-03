@@ -1,7 +1,7 @@
 'use strict';
 const { validateCreateUserParams, validateUserLoginParams, validateUpdateUserParams } = require('../utils/validations');
 const MESSAGES = require('../constants/messages/userMessage.json');
-const COMMON_MESSAGES = require('../constants/messages/commenMessages.json');
+const COMMON_MESSAGES = require('../constants/messages/commonMessages.json');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const jwt = require('../services/jwt');
@@ -64,9 +64,12 @@ const controller = {
         if (err) return res.status(500).send({ message: MESSAGES.ERROR_IDENTIFY });
         if (user && user.email == params.email)
           return res.status(200).send({ message: MESSAGES.ERROR_EMAIL_USER_EXIST });
+        User.findOneAndUpdate({ _id: req.user._id }, params, { new: true }, (err, userUpdated) => {
+          if (err || !userUpdated) return res.status(500).send({ message: MESSAGES.ERROR_UPDATING_USER });
+          return res.status(200).send({ success: true, userUpdated });
+        });
       });
     }
-
     User.findOneAndUpdate({ _id: req.user._id }, params, { new: true }, (err, userUpdated) => {
       if (err || !userUpdated) return res.status(500).send({ message: MESSAGES.ERROR_UPDATING_USER });
       return res.status(200).send({ success: true, userUpdated });

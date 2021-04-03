@@ -1,0 +1,9 @@
+{
+  "TOPICS_NOT_EXIST": "Topics not exist",
+  "COMMENT_NOT_EXIST": "Comment not exist",
+  "NOT_COMMENT": "You have not commented on anything, please comment.",
+  "ERROR_CHECK_USER_EXIST": "Error checking topic duplicity",
+  "ERROR_SAVING": "Error saving topic.",
+  "ERROR_UPDATING": "Error updating comment.",
+  "ERROR_REMOVING": "Error removing comment."
+}

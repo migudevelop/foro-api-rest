@@ -19,7 +19,7 @@ const TopicSchema = Schema({
   lang: String,
   date: { type: Date, default: Date.now },
   user: { type: Schema.ObjectId, ref: 'User' },
-  coments: [CommentSchema],
+  comments: [CommentSchema],
 });
 
 TopicSchema.plugin(mongoosePaginate);
